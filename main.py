@@ -1,26 +1,24 @@
 from tkinter import E
 from PIL import Image
+from pip import main
 import numpy as np
 
 import sys
 
-if len(sys.argv) < 2:
-    print("Usage: python main.py image_file [image_file...]")
-    sys.exit(1)
 
 
-def file2array(filename):
+def file2array(path):
     # 获取文件名
-    if '\\' in filename:
-        filename = filename.split('\\')[-1]
+    if '\\' in path:
+        filename = path.split('\\')[-1]
     else:
-        filename = filename.split('/')[-1]
+        filename = path.split('/')[-1]
     tmp = filename.split('\\')[-1]
     # 去除后缀
     name = tmp.split('.')[0]
     # print(name)
 
-    image=Image.open(filename)
+    image=Image.open(path)
     out = image.convert("RGB")
     img=np.array(out)
 
@@ -43,6 +41,11 @@ def file2array(filename):
 
     print(("int img_%s[%d][%d][%d] = " % (name,img_small.shape[0],img_small.shape[1],img_small.shape[2]))+str(img_small_c).replace("[","{").replace("]","}")+";\n\n")
 
+if __name__ == '__main__':
+    import os
+    if len(sys.argv) < 2:
+        print("Usage: python main.py image_file [image_file...]")
+        sys.exit(1)
 
-for filename in sys.argv[1:]:
-    file2array(filename)
+    for path in sys.argv[1:]:
+        file2array(path)

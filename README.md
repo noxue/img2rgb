@@ -10,5 +10,5 @@
 
     ```shell
     # 后面可跟一个或多个图片
-    python .\main.py .\alipay.png > imgs.h
+    python .\main.py .\imgs\alipay.png > imgs.h
     ```
